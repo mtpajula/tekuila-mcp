@@ -8,7 +8,7 @@ An MCP (Model Context Protocol) server for accessing Tekuila restaurant menus wi
 - **🤖 AI-Powered Analysis**: Intelligent health recommendations and meal planning
 - **📊 Date Context**: Current date awareness for better planning
 - **🌱 Health-Focused**: Prioritizes vegetarian options while considering taste
-- **🔧 Universal Compatibility**: Works with all MCP clients (with or without prompt support)
+- **🔧 Universal Compatibility**: Works with Claude Desktop, Cursor, LM Studio, and other MCP clients
 
 ## Quick Start
 
@@ -31,8 +31,9 @@ An MCP (Model Context Protocol) server for accessing Tekuila restaurant menus wi
    uv run python main.py
    ```
 
-### Connect to Claude Desktop
+### Connect to MCP Clients
 
+#### Claude Desktop
 Add this to your `claude_desktop_config.json`:
 
 ```json
@@ -50,6 +51,12 @@ Add this to your `claude_desktop_config.json`:
   }
 }
 ```
+
+#### Cursor
+The server also works with Cursor's MCP integration. Configure it in your Cursor MCP settings.
+
+#### LM Studio
+Compatible with LM Studio's MCP server support. Add the server configuration in LM Studio's MCP settings.
 
 ## Available Tools
 
