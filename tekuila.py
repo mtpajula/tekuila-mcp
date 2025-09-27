@@ -56,18 +56,41 @@ def get_current_date_context() -> str:
     now = datetime.now()
     return f"Current date: {now.strftime('%A, %B %d, %Y')} ({now.strftime('%Y-%m-%d')})"
 
-def get_daily_analysis_instructions() -> str:
-    """Get the daily menu analysis instructions."""
-    return """# AI-Powered Menu Analysis
-
-## Your Task
-Analyze the above menu options and provide intelligent recommendations based on:
-
-### Health Priority (Most Important)
+def get_menu_guidelines() -> str:
+    """Get shared menu guidelines including health priority and dietary codes."""
+    return """### Health Priority (Most Important)
 - **Vegaaninen kasvislounas** = Usually healthiest (vegan)
 - **Kasvislounas** = Good vegetarian option  
 - **Lounas** = Regular meat option
 - **POP UP Bistro** = Special/expensive option
+
+### Dietary Restriction Codes
+When users have special dietary needs, explain these Finnish codes:
+- **(G) Gluteeniton** = Gluten-free
+- **(L) Laktoositon** = Lactose-free
+- **(VL) Vähälaktoosinen** = Low-lactose
+- **(M) Maidoton** = Dairy-free
+- **(Veg) Soveltuu vegaaniruokavalioon** = Suitable for vegan diet
+- **(VS) Sis. tuoretta valkosipulia** = Contains fresh garlic
+- **(A) Sis. Allergeeneja** = Contains allergens"""
+
+def get_red_flags() -> str:
+    """Get shared red flags to identify problematic menu options."""
+    return """### Red Flags to Identify
+- Overly processed vegetarian options (like simple carrot crepes)
+- Deep-fried items (paistettu)
+- Heavy cream/cheese sauces (kerma, juusto)
+- Lack of vegetables or protein"""
+
+
+def get_daily_analysis_instructions() -> str:
+    """Get the daily menu analysis instructions."""
+    return f"""# AI-Powered Menu Analysis
+
+## Your Task
+Analyze the above menu options and provide intelligent recommendations based on:
+
+{get_menu_guidelines()}
 
 ### AI Analysis Guidelines
 1. **Nutritional Quality**: Evaluate protein sources, vegetables, cooking methods
@@ -75,24 +98,21 @@ Analyze the above menu options and provide intelligent recommendations based on:
 3. **Taste Balance**: Consider if vegetarian options are actually appealing
 4. **Value Assessment**: Is POP UP Bistro worth the extra cost?
 
-### Red Flags to Identify
-- Overly processed vegetarian options (like simple carrot crepes)
-- Deep-fried items (paistettu)
-- Heavy cream/cheese sauces (kerma, juusto)
-- Lack of vegetables or protein
+{get_red_flags()}
 
 ### Recommendation Format
-For each day, provide:
+Provide your analysis with:
 1. **Best Choice** with reasoning
 2. **Backup Option** if first choice isn't appealing
 3. **Avoid** any problematic options
 4. **Why** - brief explanation of health benefits
+5. **Dietary Info** - mention relevant dietary codes if user has special needs
 
 Remember: The healthiest option you'll actually enjoy eating is better than the perfect option you'll skip!"""
 
 def get_weekly_planning_instructions() -> str:
     """Get the weekly menu planning instructions."""
-    return """# AI-Powered Weekly Menu Planning
+    return f"""# AI-Powered Weekly Menu Planning
 
 ## Your Task
 Analyze the week's menu and create a balanced meal plan that optimizes both health and satisfaction.
@@ -101,13 +121,16 @@ Analyze the week's menu and create a balanced meal plan that optimizes both heal
 - **Monday**: Start strong with the healthiest option
 - **Tuesday-Thursday**: Mix of vegetarian and quality meat options
 - **Friday**: Treat yourself (but still healthy)
-- **Weekend**: More flexible, maintain balance
+- **Weekend**: Restaurant closed - plan alternative meals
+
+{get_menu_guidelines()}
 
 ### AI Planning Guidelines
-1. **Variety**: Different protein sources and vegetables each day
-2. **Balance**: 3-4 vegetarian days, 2-3 quality meat days
+1. **Variety**: Different protein sources and vegetables each day (Monday-Friday only)
+2. **Balance**: 2-3 vegetarian days, 2-3 quality meat days (5-day work week)
 3. **Cost Management**: Limit POP UP Bistro to 1-2 days max
 4. **Taste Satisfaction**: Ensure you'll actually enjoy each choice
+5. **Weekend Planning**: Note that restaurant is closed - skip weekends
 
 ### Analysis Framework
 For each day, consider:
@@ -115,13 +138,18 @@ For each day, consider:
 - **Taste Appeal**: Will I enjoy eating this?
 - **Value**: Is this worth the price?
 - **Variety**: How does this fit with other days?
+- **Dietary Compatibility**: Does this match user's dietary restrictions?
+
+{get_red_flags()}
 
 ### Recommendation Format
 Provide a weekly plan with:
-1. **Daily Choice** with brief reasoning
-2. **Overall Balance** assessment
+1. **Daily Choice** with brief reasoning (Monday-Friday only)
+2. **Overall Balance** assessment (5-day work week)
 3. **Cost Summary** (regular vs special options)
 4. **Health Highlights** (key nutritional wins)
+5. **Dietary Notes** (mention relevant codes for special needs)
+6. **Weekend Note** (restaurant closed - skip weekends)
 
 Remember: Consistency beats perfection. Choose options you'll actually eat and enjoy!"""
 
