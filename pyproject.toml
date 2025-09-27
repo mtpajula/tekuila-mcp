@@ -1,0 +1,17 @@
+[project]
+name = "tekuila"
+version = "0.1.0"
+description = "MCP server for Tekuila restaurant menu with healthy meal recommendations"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.15.0",
+]
+
+[project.scripts]
+tekuila-mcp = "main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
