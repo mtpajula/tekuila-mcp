@@ -36,8 +36,11 @@ def main():
     logger.info("  - weekly_menu_planning: Help plan weekly meals")
     logger.info("")
     
+    # Get port from environment variable, default to 8080
+    port = int(os.getenv('PORT', '8080'))
+    
     # Run the MCP server with streamable HTTP transport for cloud hosting
-    mcp.run(transport='streamable-http')
+    mcp.run(transport='streamable-http', host='0.0.0.0', port=port)
 
 if __name__ == "__main__":
     main()
