@@ -27,14 +27,38 @@ An MCP (Model Context Protocol) server for accessing Tekuila restaurant menus wi
    ```
 
 2. **Run the server:**
+   
+   **For cloud hosting (HTTP transport):**
    ```bash
    uv run python main.py
    ```
+   
+   **For local development (stdio transport):**
+   ```bash
+   uv run python tekuila.py
+   ```
+
+## Transport Modes
+
+The server supports two different transport modes:
+
+### Stdio Transport (`tekuila.py`)
+- **Use case**: Local development and MCP client integration
+- **How it works**: Communicates via standard input/output
+- **Best for**: Claude Desktop, Cursor, LM Studio, and other MCP clients
+- **Command**: `uv run python tekuila.py`
+
+### HTTP Transport (`main.py`)
+- **Use case**: Cloud hosting and web deployment
+- **How it works**: Runs as an HTTP server on port 8000
+- **Best for**: Cloud platforms, Docker containers, web services
+- **Command**: `uv run python main.py`
+- **URL**: `http://127.0.0.1:8000` (when running locally)
 
 ### Connect to MCP Clients
 
 #### Claude Desktop
-Add this to your `claude_desktop_config.json`:
+Add this to your `claude_desktop_config.json` (uses stdio transport):
 
 ```json
 {
@@ -45,7 +69,7 @@ Add this to your `claude_desktop_config.json`:
         "--directory",
         "/absolute/path/to/tekuila",
         "run",
-        "main.py"
+        "tekuila.py"
       ]
     }
   }
@@ -141,8 +165,8 @@ The server understands Finnish menu categories:
 ### Project Structure
 ```
 tekuila/
-├── tekuila.py          # Main MCP server implementation
-├── main.py             # Server entry point
+├── tekuila.py          # Main MCP server implementation (stdio transport)
+├── main.py             # HTTP server entry point (streamable-http transport)
 ├── pyproject.toml      # Project configuration
 ├── uv.lock            # Dependency lock file
 ├── .gitignore         # Git ignore rules
@@ -151,8 +175,11 @@ tekuila/
 
 ### Running Tests
 ```bash
-# Test server startup
+# Test HTTP server startup (cloud hosting)
 uv run python main.py
+
+# Test stdio server startup (local development)
+uv run python tekuila.py
 
 # Test individual functions
 uv run python -c "from tekuila import get_current_date_context; print(get_current_date_context())"
