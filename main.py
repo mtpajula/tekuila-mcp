@@ -12,28 +12,32 @@ Usage:
 
 import sys
 import os
+import logging
 
 # Add the current directory to Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from tekuila import mcp
 
+# Get logger (logging is already configured in tekuila.py)
+logger = logging.getLogger(__name__)
+
 def main():
     """Run the Tekuila MCP server."""
-    print("🍽️ Starting Tekuila MCP Server...", file=sys.stderr)
-    print("Available tools:", file=sys.stderr)
-    print("  - get_current_day_menu: Get today's menu", file=sys.stderr)
-    print("  - get_current_week_menu: Get this week's menu", file=sys.stderr)
-    print("  - get_current_date: Get current date context", file=sys.stderr)
-    print("  - analyze_daily_menu: Get today's menu with AI analysis guide", file=sys.stderr)
-    print("  - plan_weekly_menu: Get week's menu with planning guide", file=sys.stderr)
-    print("Available prompts:", file=sys.stderr)
-    print("  - analyze_menu_selection: Help analyze menu options", file=sys.stderr)
-    print("  - weekly_menu_planning: Help plan weekly meals", file=sys.stderr)
-    print("", file=sys.stderr)
+    logger.info("🍽️ Starting Tekuila MCP Server...")
+    logger.info("Available tools:")
+    logger.info("  - get_current_day_menu: Get today's menu")
+    logger.info("  - get_current_week_menu: Get this week's menu")
+    logger.info("  - get_current_date: Get current date context")
+    logger.info("  - analyze_daily_menu: Get today's menu with AI analysis guide")
+    logger.info("  - plan_weekly_menu: Get week's menu with planning guide")
+    logger.info("Available prompts:")
+    logger.info("  - analyze_menu_selection: Help analyze menu options")
+    logger.info("  - weekly_menu_planning: Help plan weekly meals")
+    logger.info("")
     
-    # Run the MCP server
-    mcp.run(transport='stdio')
+    # Run the MCP server with streamable HTTP transport for cloud hosting
+    mcp.run(transport='streamable-http')
 
 if __name__ == "__main__":
     main()

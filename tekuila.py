@@ -2,8 +2,17 @@ import httpx
 import xml.etree.ElementTree as ET
 import re
 import sys
+import logging
 from datetime import datetime
 from mcp.server.fastmcp import FastMCP
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler(sys.stderr)]
+)
+logger = logging.getLogger(__name__)
 
 # Initialize FastMCP server
 mcp = FastMCP("tekuila-menu")
@@ -20,7 +29,7 @@ async def fetch_rss_feed(url: str) -> str | None:
             response.raise_for_status()
             return response.text
         except Exception as e:
-            print(f"Error fetching RSS: {e}", file=sys.stderr)
+            logger.error(f"Error fetching RSS: {e}")
             return None
 
 def parse_menu_items(rss_content: str) -> list[dict]:
@@ -48,7 +57,7 @@ def parse_menu_items(rss_content: str) -> list[dict]:
         
         return items
     except Exception as e:
-        print(f"Error parsing RSS: {e}", file=sys.stderr)
+        logger.error(f"Error parsing RSS: {e}")
         return []
 
 def get_current_date_context() -> str:
