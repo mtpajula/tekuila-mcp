@@ -5,6 +5,7 @@ import sys
 import logging
 from datetime import datetime
 from mcp.server.fastmcp import FastMCP
+import os
 
 # Configure logging
 logging.basicConfig(
@@ -15,7 +16,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Initialize FastMCP server
-mcp = FastMCP("tekuila-menu")
+mcp = FastMCP(
+    "tekuila-menu", 
+    port=os.getenv('PORT', '8080'), 
+    host=os.getenv('HOST', '0.0.0.0')
+    )
 
 # Constants
 CURRENT_DAY_URL = "https://www.compass-group.fi/menuapi/feed/rss/current-day?costNumber=0605&language=fi"
